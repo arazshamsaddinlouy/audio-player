@@ -1,6 +1,6 @@
 {
   "name": "ngx-music-audio-player",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A modern, minimal and professional audio player for Angular with playlist support, dark theme, and full controls",
   "keywords": [
     "angular",

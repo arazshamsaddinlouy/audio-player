@@ -16,7 +16,7 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "ngx-audio-player": ["./dist/ngx-audio-player"]
+      "@arazshamsaddinlouy/ngx-audio-player": ["./dist/ngx-audio-player"]
     },
     "lib": ["ES2022", "dom"],
     "types": ["node"]

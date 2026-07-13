@@ -1,7 +1,30 @@
 {
-  "name": "ngx-audio-player",
+  "name": "@arazshamsaddinlouy/ngx-audio-player",
   "version": "0.0.1",
-  "description": "A professional Angular audio player library",
+  "description": "A modern, minimal and professional audio player for Angular with playlist support, dark theme, and full controls",
+  "keywords": [
+    "angular",
+    "audio",
+    "player",
+    "music",
+    "playlist",
+    "ngx",
+    "audio-player",
+    "angular-audio-player"
+  ],
+  "author": {
+    "name": "Araz Shamsaddinlouy",
+    "url": "https://github.com/arazshamsaddinlouy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arazshamsaddinlouy/ngx-audio-player"
+  },
+  "bugs": {
+    "url": "https://github.com/arazshamsaddinlouy/ngx-audio-player/issues"
+  },
+  "homepage": "https://github.com/arazshamsaddinlouy/ngx-audio-player#readme",
+  "license": "MIT",
   "peerDependencies": {
     "@angular/core": ">=17.0.0",
     "@angular/common": ">=17.0.0",
@@ -11,14 +34,5 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false,
-  "exports": {
-    "./package.json": {
-      "default": "./package.json"
-    },
-    ".": {
-      "types": "./index.d.ts",
-      "default": "./index.js"
-    }
-  }
+  "sideEffects": false
 }

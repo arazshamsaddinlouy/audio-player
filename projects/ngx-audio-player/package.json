@@ -1,5 +1,5 @@
 {
-  "name": "@arazshamsaddinlouy/ngx-audio-player",
+  "name": "ngx-music-audio-player",
   "version": "0.0.1",
   "description": "A modern, minimal and professional audio player for Angular with playlist support, dark theme, and full controls",
   "keywords": [
@@ -16,14 +16,6 @@
     "name": "Araz Shamsaddinlouy",
     "url": "https://github.com/arazshamsaddinlouy"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/arazshamsaddinlouy/ngx-audio-player"
-  },
-  "bugs": {
-    "url": "https://github.com/arazshamsaddinlouy/ngx-audio-player/issues"
-  },
-  "homepage": "https://github.com/arazshamsaddinlouy/ngx-audio-player#readme",
   "license": "MIT",
   "peerDependencies": {
     "@angular/core": ">=17.0.0",

@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PlayerContainerComponent, Track } from '@arazshamsaddinlouy/ngx-audio-player';
+import { PlayerContainerComponent, Track } from 'ngx-music-audio-player';
 
 @Component({
   selector: 'app-root',

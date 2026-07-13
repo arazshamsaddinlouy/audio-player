@@ -1,6 +1,6 @@
 # 🎵 ngx-audio-player
 
-یک پخش‌کننده صوتی مدرن، مینیمال و حرفه‌ای برای Angular با پشتیبانی از لیست پخش، تم تاریک، و کنترل‌های کامل.
+A modern, minimal, and customizable audio player for Angular with playlist support, multiple themes, and a complete set of playback controls.
 
 [![npm version](https://img.shields.io/badge/npm-v0.0.1-blue.svg)](https://www.npmjs.com/package/ngx-audio-player)
 [![Angular](https://img.shields.io/badge/Angular-17+-red.svg)](https://angular.io/)
@@ -8,31 +8,31 @@
 
 ---
 
-## ✨ ویژگی‌ها
+## ✨ Features
 
-- 🎵 **پخش صوتی با لیست پخش** - پخش آهنگ‌ها با مدیریت لیست پخش
-- 🎨 **تم‌های متنوع** - تم روشن، تاریک، مینیمال و جمع‌وجور
-- 🔊 **کنترل‌های کامل** - پخش/مکث، قبلی/بعدی، شافل، تکرار، کنترل صدا
-- 🖼️ **نمایش کاور** - نمایش کاور آهنگ با افکت بلور در پس‌زمینه
-- 📱 **واکنش‌گرا** - طراحی کاملاً واکنش‌گرا برای همه دستگاه‌ها
-- 🚀 **Standalone** - بدون نیاز به NgModule، کامپوننت‌های مستقل
-- 🎯 **نوار پیشرفت** - نمایش دقیق زمان پخش با قابلیت جابجایی
-- 🎨 **آیکون‌های وکتوری** - استفاده از Feather Icons برای ظاهری زیبا
-- 🌙 **تم تاریک حرفه‌ای** - پالت رنگی اختصاصی با کنتراست بالا
+- 🎵 **Playlist Support** – Play and manage a collection of audio tracks.
+- 🎨 **Multiple Themes** – Choose between Light, Dark, Minimal, and Compact themes.
+- 🔊 **Complete Playback Controls** – Play/Pause, Previous/Next, Shuffle, Repeat, and Volume control.
+- 🖼️ **Album Cover Display** – Beautiful album artwork with a blurred background effect.
+- 📱 **Responsive Design** – Optimized for desktop, tablet, and mobile devices.
+- 🚀 **Standalone Components** – No `NgModule` required.
+- 🎯 **Interactive Progress Bar** – Seek through tracks with accurate playback timing.
+- 🎨 **Vector Icons** – Powered by Feather Icons.
+- 🌙 **Professional Dark Theme** – Carefully crafted high-contrast color palette.
 
 ---
 
-## 📦 نصب
+# 📦 Installation
 
-### ۱. نصب کتابخانه اصلی
+## 1. Install the library
 
 ```bash
 npm install ngx-audio-player
 ```
 
-### ۲. نصب وابستگی‌های آیکون (ضروری)
+## 2. Install icon dependencies (Required)
 
-این کتابخانه از `@ng-icons` برای آیکون‌ها استفاده می‌کند:
+This library uses `@ng-icons` for icons.
 
 ```bash
 npm install @ng-icons/core @ng-icons/feather-icons
@@ -40,11 +40,11 @@ npm install @ng-icons/core @ng-icons/feather-icons
 
 ---
 
-## 🚀 شروع سریع
+# 🚀 Quick Start
 
-### ۱. ایمپورت کامپوننت در اپلیکیشن
+## 1. Import the component
 
-**`app.component.ts`**:
+**app.component.ts**
 
 ```typescript
 import { Component } from '@angular/core';
@@ -56,7 +56,7 @@ import { PlayerContainerComponent, Track } from 'ngx-audio-player';
   standalone: true,
   imports: [CommonModule, PlayerContainerComponent],
   template: `
-    <div style="padding: 40px;">
+    <div style="padding:40px">
       <ngx-audio-player-container
         [playlist]="playlist"
         title="My Playlist"
@@ -64,7 +64,8 @@ import { PlayerContainerComponent, Track } from 'ngx-audio-player';
         [showCover]="true"
         [autoPlay]="false"
         (trackChanged)="onTrackChanged($event)"
-      ></ngx-audio-player-container>
+      >
+      </ngx-audio-player-container>
     </div>
   `,
 })
@@ -89,157 +90,157 @@ export class AppComponent {
   ];
 
   onTrackChanged(track: Track): void {
-    console.log('🎵 Now playing:', track.title);
+    console.log('🎵 Now Playing:', track.title);
   }
 }
 ```
 
-### ۲. بوت‌استرپ اپلیکیشن
+## 2. Bootstrap your application
 
-**`main.ts`**:
+**main.ts**
 
 ```typescript
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 
-bootstrapApplication(AppComponent).catch((err) => console.error(err));
+bootstrapApplication(AppComponent).catch(console.error);
 ```
 
 ---
 
-## 📖 راهنمای استفاده
+# 📖 Usage
 
-### کامپوننت `PlayerContainerComponent`
+## `PlayerContainerComponent`
 
-کامپوننت اصلی پخش‌کننده که همه بخش‌ها را در خود جای می‌دهد.
+The main audio player component that encapsulates all player features.
 
-#### ورودی‌ها (Inputs)
+### Inputs
 
-| ورودی             | نوع                                           | پیش‌فرض          | توضیح               |
-| ----------------- | --------------------------------------------- | ---------------- | ------------------- |
-| `playlist`        | `Track[]`                                     | `[]`             | لیست آهنگ‌ها        |
-| `title`           | `string`                                      | `'Audio Player'` | عنوان پلیر          |
-| `theme`           | `'light' \| 'dark' \| 'minimal' \| 'compact'` | `'light'`        | تم پلیر             |
-| `showHeader`      | `boolean`                                     | `true`           | نمایش هدر           |
-| `showFooter`      | `boolean`                                     | `true`           | نمایش فوتر          |
-| `showActions`     | `boolean`                                     | `true`           | نمایش دکمه‌های اکشن |
-| `showCover`       | `boolean`                                     | `true`           | نمایش کاور          |
-| `showClearButton` | `boolean`                                     | `false`          | نمایش دکمه پاک کردن |
-| `autoPlay`        | `boolean`                                     | `false`          | پخش خودکار          |
-| `startIndex`      | `number`                                      | `0`              | شاخص شروع           |
+| Input             | Type                                          | Default          | Description                  |
+| ----------------- | --------------------------------------------- | ---------------- | ---------------------------- |
+| `playlist`        | `Track[]`                                     | `[]`             | List of audio tracks         |
+| `title`           | `string`                                      | `"Audio Player"` | Player title                 |
+| `theme`           | `"light" \| "dark" \| "minimal" \| "compact"` | `"light"`        | Player theme                 |
+| `showHeader`      | `boolean`                                     | `true`           | Show header                  |
+| `showFooter`      | `boolean`                                     | `true`           | Show footer                  |
+| `showActions`     | `boolean`                                     | `true`           | Show action buttons          |
+| `showCover`       | `boolean`                                     | `true`           | Display album artwork        |
+| `showClearButton` | `boolean`                                     | `false`          | Show clear playlist button   |
+| `autoPlay`        | `boolean`                                     | `false`          | Automatically start playback |
+| `startIndex`      | `number`                                      | `0`              | Initial track index          |
 
-#### خروجی‌ها (Outputs)
+### Outputs
 
-| خروجی             | نوع                   | توضیح                    |
-| ----------------- | --------------------- | ------------------------ |
-| `trackChanged`    | `EventEmitter<Track>` | وقتی آهنگ تغییر می‌کند   |
-| `playlistCleared` | `EventEmitter<void>`  | وقتی لیست پخش پاک می‌شود |
-| `playerReady`     | `EventEmitter<void>`  | وقتی پلیر آماده شد       |
+| Output            | Type                  | Description                          |
+| ----------------- | --------------------- | ------------------------------------ |
+| `trackChanged`    | `EventEmitter<Track>` | Fired when the current track changes |
+| `playlistCleared` | `EventEmitter<void>`  | Fired when the playlist is cleared   |
+| `playerReady`     | `EventEmitter<void>`  | Fired when the player is initialized |
 
 ---
 
-### مدل `Track`
+## Track Model
 
 ```typescript
 interface Track {
-  id?: string | number; // شناسه یکتا
-  title: string; // عنوان آهنگ (اجباری)
-  url: string; // آدرس فایل صوتی (اجباری)
-  artist?: string; // نام هنرمند
-  duration?: number; // مدت زمان (ثانیه)
-  coverArt?: string; // آدرس کاور
+  id?: string | number;
+  title: string;
+  url: string;
+  artist?: string;
+  duration?: number;
+  coverArt?: string;
 }
 ```
 
 ---
 
-### متدهای عمومی
+## Public Methods
 
-کامپوننت `PlayerContainerComponent` متدهای زیر را در اختیار شما قرار می‌دهد:
+The `PlayerContainerComponent` exposes the following methods:
 
 ```typescript
-// پخش/مکث
+// Play / Pause
 togglePlay(): void;
 
-// آهنگ بعدی
+// Next track
 nextTrack(): void;
 
-// آهنگ قبلی
+// Previous track
 previousTrack(): void;
 
-// تغییر وضعیت شافل
+// Toggle shuffle mode
 onShuffleToggle(): void;
 
-// تغییر وضعیت تکرار
+// Toggle repeat mode
 onRepeatToggle(): void;
 
-// پاک کردن لیست پخش
+// Clear playlist
 onClearPlaylist(): void;
 
-// دریافت وضعیت فعلی
+// Get current player state
 getPlayerState(): PlayerState;
 ```
 
 ---
 
-## 🎨 تم‌ها
+# 🎨 Themes
 
-### تم روشن (Light)
+## Light
 
 ```html
-<ngx-audio-player-container [theme]="'light'" ...></ngx-audio-player-container>
+<ngx-audio-player-container [theme]="'light'"> </ngx-audio-player-container>
 ```
 
-### تم تاریک (Dark)
+## Dark
 
 ```html
-<ngx-audio-player-container [theme]="'dark'" ...></ngx-audio-player-container>
+<ngx-audio-player-container [theme]="'dark'"> </ngx-audio-player-container>
 ```
 
-### تم مینیمال (Minimal)
+## Minimal
 
 ```html
-<ngx-audio-player-container [theme]="'minimal'" ...></ngx-audio-player-container>
+<ngx-audio-player-container [theme]="'minimal'"> </ngx-audio-player-container>
 ```
 
-### تم جمع‌وجور (Compact)
+## Compact
 
 ```html
-<ngx-audio-player-container [theme]="'compact'" ...></ngx-audio-player-container>
+<ngx-audio-player-container [theme]="'compact'"> </ngx-audio-player-container>
 ```
 
 ---
 
-## 📱 واکنش‌گرایی
+# 📱 Responsive Design
 
-پلیر به طور کامل واکنش‌گرا طراحی شده است:
+The player is fully responsive.
 
-- **دسکتاپ**: نمایش کاور در سمت چپ و کنترل‌ها در سمت راست
-- **موبایل**: نمایش کاور در بالا و کنترل‌ها در پایین
+- **Desktop** – Album artwork on the left, controls on the right.
+- **Mobile** – Album artwork on top, controls below.
 
 ---
 
-## 🔧 توسعه و بیلد
+# 🔧 Development
 
-### بیلد کتابخانه
+## Build the library
 
 ```bash
 ng build ngx-audio-player
 ```
 
-### بیلد با watch mode
+## Watch mode
 
 ```bash
 ng build ngx-audio-player --watch
 ```
 
-### اجرای دمو
+## Run the demo application
 
 ```bash
 ng serve demo
 ```
 
-### انتشار در npm
+## Publish to npm
 
 ```bash
 cd dist/ngx-audio-player
@@ -248,26 +249,21 @@ npm publish
 
 ---
 
-## 📂 ساختار پروژه
+# 📂 Project Structure
 
-```
+```text
 ngx-audio-player/
 ├── src/
 │   ├── lib/
 │   │   ├── core/
 │   │   │   ├── models/
-│   │   │   │   └── track.model.ts
 │   │   │   ├── services/
-│   │   │   │   └── audio-player.service.ts
 │   │   │   └── state/
-│   │   │       └── player-state.interface.ts
 │   │   ├── components/
 │   │   │   ├── player-container/
 │   │   │   ├── player-controls/
 │   │   │   └── playlist/
 │   │   ├── utils/
-│   │   │   ├── time-utils.ts
-│   │   │   └── format-time.pipe.ts
 │   │   └── public-api.ts
 │   └── ...
 ├── package.json
@@ -276,36 +272,57 @@ ngx-audio-player/
 
 ---
 
-## 🤝 مشارکت
+# 🤝 Contributing
 
-مشارکت‌های شما خوش‌آمد است! لطفاً برای گزارش باگ یا پیشنهاد ویژگی، یک Issue ایجاد کنید.
+Contributions are welcome!
 
-1. Fork کنید
-2. Branch جدید بسازید (`git checkout -b feature/amazing-feature`)
-3. Commit کنید (`git commit -m 'Add some amazing feature'`)
-4. Push کنید (`git push origin feature/amazing-feature`)
-5. Pull Request باز کنید
+If you'd like to improve this project:
 
----
+1. Fork the repository.
+2. Create a feature branch.
 
-## 📄 لایسنس
+```bash
+git checkout -b feature/amazing-feature
+```
 
-این پروژه تحت لایسنس MIT منتشر شده است. برای اطلاعات بیشتر فایل [LICENSE](LICENSE) را ببینید.
+3. Commit your changes.
 
----
+```bash
+git commit -m "Add amazing feature"
+```
 
-## 🙏 سپاس‌گزاری
+4. Push to your branch.
 
-- [Angular](https://angular.io/) - فریمورک قدرتمند
-- [Feather Icons](https://feathericons.com/) - آیکون‌های زیبا
-- [@ng-icons](https://ng-icons.github.io/ng-icons/) - پکیج آیکون برای Angular
+```bash
+git push origin feature/amazing-feature
+```
 
----
-
-## 📞 ارتباط با توسعه‌دهنده
-
-- **گیت‌هاب**: [arazshamsaddinlouy](https://github.com/arazshamsaddinlouy)
+5. Open a Pull Request.
 
 ---
 
-⭐ اگر از این کتابخانه خوشتان آمد، به آن Star دهید!
+# 📄 License
+
+This project is licensed under the **MIT License**.
+
+See the [LICENSE](LICENSE) file for details.
+
+---
+
+# 🙏 Acknowledgements
+
+- **Angular** — The modern web application framework.
+- **Feather Icons** — Beautiful open-source icons.
+- **@ng-icons** — Icon library for Angular.
+
+---
+
+# 📬 Author
+
+**GitHub:** https://github.com/arazshamsaddinlouy
+
+---
+
+## ⭐ Support
+
+If you find this project useful, consider giving it a **⭐ Star** on GitHub. It helps the project grow and encourages future development.

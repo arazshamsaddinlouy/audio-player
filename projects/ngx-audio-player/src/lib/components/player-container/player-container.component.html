@@ -1,0 +1,120 @@
+<div class="audio-player-container" [ngClass]="themeClass" #container>
+  <!-- هدر مینیمال -->
+  <div class="player-header" *ngIf="showHeader">
+    <div class="header-left">
+      <h3 class="player-title">{{ title }}</h3>
+    </div>
+    <div class="header-right" *ngIf="showActions">
+      <button
+        class="action-btn"
+        (click)="onClearPlaylist()"
+        *ngIf="showClearButton"
+        title="Clear Playlist"
+      >
+        <ng-icon name="featherTrash2" size="18" />
+      </button>
+    </div>
+  </div>
+
+  <!-- بخش اصلی: کاور مربعی + اطلاعات و کنترل‌ها -->
+  <div class="player-main-content">
+    <!-- کاور (سمت چپ) -->
+    <div class="player-cover-wrapper" *ngIf="showCover">
+      <img
+        [src]="currentTrack?.coverArt || 'assets/default-cover.jpg'"
+        [alt]="currentTrack?.title || 'Audio Cover'"
+        class="cover-image"
+        #coverImage
+      />
+      <div class="cover-overlay" *ngIf="!isLoading && currentTrack && isPlaying">
+        <div class="play-indicator">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- اطلاعات و کنترل‌ها (سمت راست) -->
+    <div class="player-info-section">
+      <div class="track-info" *ngIf="currentTrack; else noTrack">
+        <div class="track-title">{{ currentTrack.title }}</div>
+        <div class="track-artist" *ngIf="currentTrack.artist">
+          {{ currentTrack.artist }}
+        </div>
+      </div>
+      <ng-template #noTrack>
+        <div class="track-info empty">
+          <div class="track-title">No track playing</div>
+          <div class="track-artist">Select a song</div>
+        </div>
+      </ng-template>
+
+      <!-- کنترل‌های مینیمال -->
+      <div class="minimal-controls">
+        <button
+          class="ctrl-btn shuffle-btn"
+          (click)="onShuffleToggle()"
+          [class.active]="isShuffled"
+          title="Shuffle"
+        >
+          <ng-icon name="featherShuffle" size="18" />
+        </button>
+
+        <button
+          class="ctrl-btn"
+          (click)="previousTrack()"
+          [disabled]="!playlist.length"
+          title="Previous"
+        >
+          <ng-icon name="featherSkipBack" size="20" />
+        </button>
+
+        <button
+          class="ctrl-btn play-btn"
+          (click)="togglePlay()"
+          [disabled]="!playlist.length"
+          title="Play/Pause"
+        >
+          <ng-icon [name]="isPlaying ? 'featherPause' : 'featherPlay'" size="24" />
+        </button>
+
+        <button class="ctrl-btn" (click)="nextTrack()" [disabled]="!playlist.length" title="Next">
+          <ng-icon name="featherSkipForward" size="20" />
+        </button>
+
+        <button
+          class="ctrl-btn repeat-btn"
+          (click)="onRepeatToggle()"
+          [class.active]="repeatMode !== 'none'"
+          [class.repeat-one]="repeatMode === 'one'"
+          title="Repeat"
+        >
+          <ng-icon name="featherRepeat" size="18" />
+          <span class="repeat-badge" *ngIf="repeatMode === 'one'">1</span>
+        </button>
+      </div>
+
+      <!-- نوار پیشرفت -->
+      <div class="progress-section">
+        <span class="time">{{ currentTime | formatTime }}</span>
+        <input
+          type="range"
+          [min]="0"
+          [max]="duration || 0"
+          [value]="currentTime"
+          (input)="onSeek($event)"
+          class="progress-slider"
+          [disabled]="!duration"
+        />
+        <span class="time">{{ duration | formatTime }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- لیست پخش -->
+  <div class="player-playlist-section" *ngIf="isPlaylistExpanded">
+    <ngx-audio-player-playlist></ngx-audio-player-playlist>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<ngx-audio-player-container
+  [playlist]="playlist()"
+  title="My Awesome Playlist"
+  [showCover]="true"
+  [autoPlay]="false"
+  [theme]="'light'"
+  (trackChanged)="onTrackChanged($event)"
+  (playerReady)="onPlayerReady()"
+></ngx-audio-player-container>

@@ -1,0 +1,34 @@
+<div class="playlist" *ngIf="playerState$ | async as state">
+  <div class="playlist-items">
+    <div
+      *ngFor="let track of state.playlist; let i = index"
+      class="playlist-item"
+      [class.active]="i === state.currentTrackIndex"
+      (click)="selectTrack(track, i)"
+    >
+      <div class="track-icon">
+        <ng-container *ngIf="i === state.currentTrackIndex && state.isPlaying; else musicIcon">
+          <ng-icon name="featherPlay" size="14"></ng-icon>
+        </ng-container>
+
+        <ng-template #musicIcon>
+          <ng-icon name="featherMusic" size="14"></ng-icon>
+        </ng-template>
+      </div>
+
+      <div class="track-info">
+        <div class="track-title">
+          {{ track.title }}
+        </div>
+
+        <div class="track-artist" *ngIf="track.artist">
+          {{ track.artist }}
+        </div>
+      </div>
+
+      <div class="track-duration" *ngIf="track.duration">
+        {{ track.duration | formatTime }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="player-controls" *ngIf="playerState$ | async as state">
+  <div class="track-info" *ngIf="state.currentTrack">
+    <div class="track-title">
+      {{ state.currentTrack.title }}
+    </div>
+
+    <div class="track-artist" *ngIf="state.currentTrack.artist">
+      {{ state.currentTrack.artist }}
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="icon-btn" [class.active]="state.isShuffled" (click)="onShuffle()">
+      <ng-icon name="featherShuffle"></ng-icon>
+    </button>
+
+    <button class="icon-btn" (click)="onPrevious()" [disabled]="!state.playlist.length">
+      <ng-icon name="featherSkipBack"></ng-icon>
+    </button>
+
+    <button class="play-btn" (click)="onPlayPause()">
+      <ng-icon [name]="state.isPlaying ? 'featherPause' : 'featherPlay'" size="30"></ng-icon>
+    </button>
+
+    <button class="icon-btn" (click)="onNext()" [disabled]="!state.playlist.length">
+      <ng-icon name="featherSkipForward"></ng-icon>
+    </button>
+
+    <button class="icon-btn" [class.active]="state.repeatMode !== 'none'" (click)="onRepeat()">
+      <ng-icon name="featherRepeat"></ng-icon>
+
+      <span class="repeat-badge" *ngIf="state.repeatMode === 'one'"> 1 </span>
+    </button>
+  </div>
+
+  <div class="progress">
+    <span class="time">
+      {{ state.currentTime | formatTime }}
+    </span>
+
+    <input
+      class="slider"
+      type="range"
+      [min]="0"
+      [max]="state.duration || 0"
+      [value]="state.currentTime"
+      (input)="onSeek($event)"
+    />
+
+    <span class="time">
+      {{ state.duration | formatTime }}
+    </span>
+  </div>
+
+  <div class="volume">
+    <button class="icon-btn small" (click)="toggleMute()">
+      <ng-icon [name]="isMuted ? 'featherVolumeX' : 'featherVolume2'"></ng-icon>
+    </button>
+
+    <input
+      class="slider volume-slider"
+      type="range"
+      min="0"
+      max="1"
+      step="0.01"
+      [value]="state.volume"
+      (input)="onVolumeChange($event)"
+    />
+
+    <span class="volume-text"> {{ Math.round(state.volume * 100) }}% </span>
+  </div>
+</div>

@@ -1,0 +1,614 @@
+/* ============================================
+   کانتینر اصلی با پس‌زمینه بلور
+   ============================================ */
+
+.audio-player-container {
+  position: relative;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: none;
+  max-width: 700px;
+  margin: 0 auto;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-size: cover !important;
+
+  // لایه شیشه‌ای روی پس‌زمینه
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(0px);
+    z-index: 1;
+    border-radius: 8px;
+  }
+
+  // همه محتوا بالای لایه‌ها
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+/* ============================================
+   تم تاریک مینیمال
+   ============================================ */
+
+.audio-player-container.theme-dark {
+  background: rgba(15, 14, 23, 0.92);
+  border-color: rgba(255, 255, 255, 0.05);
+
+  &::before {
+    opacity: 0.08; // ⭐ کمی بیشتر در تم تاریک
+    filter: blur(60px);
+  }
+
+  &::after {
+    background: rgba(15, 14, 23, 0.4);
+  }
+
+  .player-title {
+    color: #fffffe;
+  }
+  .track-title {
+    color: #fffffe;
+  }
+  .track-artist {
+    color: #a7a9be;
+  }
+
+  .player-header {
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+  }
+  .player-footer {
+    border-top-color: rgba(255, 255, 255, 0.06);
+  }
+  .player-playlist-section {
+    border-top-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .action-btn {
+    color: #a7a9be;
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fffffe;
+    }
+  }
+
+  .ctrl-btn {
+    color: #a7a9be;
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fffffe;
+    }
+    &:disabled {
+      opacity: 0.3;
+    }
+  }
+
+  .shuffle-btn.active {
+    background: #9b59b6 !important;
+    color: white !important;
+  }
+
+  .repeat-btn.active {
+    background: #f39c12 !important;
+    color: white !important;
+  }
+
+  .repeat-btn.repeat-one {
+    background: #e67e22 !important;
+    color: white !important;
+  }
+
+  .play-btn {
+    background: #7f5af0 !important;
+    color: white !important;
+    &:hover:not(:disabled) {
+      background: #6e4bd6 !important;
+    }
+  }
+
+  .progress-slider {
+    background: rgba(255, 255, 255, 0.1);
+    &::-webkit-slider-thumb {
+      background: #7f5af0;
+    }
+    &::-moz-range-thumb {
+      background: #7f5af0;
+    }
+  }
+
+  .time {
+    color: rgba(255, 255, 255, 0.3);
+  }
+  .footer-info {
+    color: rgba(255, 255, 255, 0.3);
+  }
+  .footer-btn {
+    color: rgba(255, 255, 255, 0.3);
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fffffe;
+    }
+  }
+  .cover-overlay {
+    background: rgba(15, 14, 23, 0.4);
+  }
+  .track-info.empty .track-title {
+    color: rgba(255, 255, 255, 0.3);
+  }
+  .track-info.empty .track-artist {
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  .play-indicator .bar {
+    background: #fffffe;
+    &:nth-child(1) {
+      animation-delay: 0s;
+    }
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    &:nth-child(4) {
+      animation-delay: 0.6s;
+    }
+  }
+}
+
+/* ============================================
+   تم مینیمال (شفاف‌تر)
+   ============================================ */
+
+.audio-player-container.theme-minimal {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: none;
+
+  &::before {
+    opacity: 0.04;
+    filter: blur(70px);
+  }
+
+  &.theme-dark {
+    background: rgba(15, 14, 23, 0.6);
+    backdrop-filter: blur(20px);
+    border-color: rgba(255, 255, 255, 0.05);
+
+    &::before {
+      opacity: 0.06;
+    }
+  }
+}
+
+/* ============================================
+   هدر
+   ============================================ */
+
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.player-title {
+  margin: 0;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: #1a1a2e;
+  opacity: 0.7;
+}
+
+.header-right {
+  display: flex;
+  gap: 4px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* ============================================
+   بخش اصلی: کاور + کنترل‌ها
+   ============================================ */
+
+.player-main-content {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* ----- کاور ----- */
+.player-cover-wrapper {
+  flex: 0 0 80px;
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* نوارهای پخش */
+.play-indicator {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 20px;
+
+  .bar {
+    display: block;
+    width: 2px;
+    height: 100%;
+    background: white;
+    border-radius: 1px;
+    animation: barPulse 0.8s ease-in-out infinite alternate;
+    transform-origin: bottom;
+
+    &:nth-child(1) {
+      animation-delay: 0s;
+      height: 50%;
+    }
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+      height: 100%;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+      height: 35%;
+    }
+    &:nth-child(4) {
+      animation-delay: 0.6s;
+      height: 70%;
+    }
+  }
+}
+
+@keyframes barPulse {
+  0% {
+    transform: scaleY(0.5);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+/* ----- اطلاعات و کنترل‌ها ----- */
+.player-info-section {
+  flex: 1;
+  min-width: 0;
+}
+
+.track-info {
+  margin-bottom: 6px;
+
+  .track-title {
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #1a1a2e;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .track-artist {
+    font-size: 0.75em;
+    color: rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.empty {
+    .track-title {
+      color: rgba(0, 0, 0, 0.2);
+    }
+    .track-artist {
+      color: rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+/* ----- کنترل‌های مینیمال ----- */
+.minimal-controls {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  margin-bottom: 4px;
+}
+
+.ctrl-btn {
+  background: none;
+  border: none;
+  padding: 4px 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.5);
+  position: relative;
+
+  &:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.04);
+    color: rgba(0, 0, 0, 0.8);
+  }
+  &:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
+}
+
+.shuffle-btn.active {
+  background: #9b59b6 !important;
+  color: white !important;
+  border-radius: 50%;
+  padding: 4px 6px;
+
+  &:hover {
+    background: #8e44ad !important;
+  }
+}
+
+.repeat-btn {
+  &.active {
+    background: #f39c12 !important;
+    color: white !important;
+    border-radius: 50%;
+    padding: 4px 6px;
+
+    &:hover {
+      background: #e67e22 !important;
+    }
+  }
+
+  &.repeat-one {
+    background: #e67e22 !important;
+    color: white !important;
+    border-radius: 50%;
+    padding: 4px 6px;
+
+    &:hover {
+      background: #d35400 !important;
+    }
+  }
+}
+
+.repeat-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #e67e22;
+  color: white;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  font-size: 0.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: 1px solid white;
+}
+
+.play-btn {
+  background: #7f5af0 !important;
+  color: white !important;
+  padding: 8px 10px !important;
+  border-radius: 50% !important;
+  width: 38px;
+  height: 38px;
+
+  &:hover:not(:disabled) {
+    background: #6e4bd6 !important;
+    transform: scale(1.05);
+  }
+}
+
+/* ----- نوار پیشرفت ----- */
+.progress-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.time {
+  font-size: 0.6em;
+  color: rgba(0, 0, 0, 0.2);
+  min-width: 28px;
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-slider {
+  flex: 1;
+  height: 3px;
+  -webkit-appearance: none;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+  outline: none;
+  transition: height 0.2s;
+
+  &:hover {
+    height: 4px;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    background: #7f5af0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  &::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    background: #7f5af0;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+  }
+}
+
+/* ============================================
+   فوتر
+   ============================================ */
+
+.player-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.footer-info {
+  font-size: 0.65em;
+  color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.footer-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.footer-btn {
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* ============================================
+   لیست پخش
+   ============================================ */
+
+.player-playlist-section {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* ============================================
+   واکنش‌گرا
+   ============================================ */
+
+@media (max-width: 600px) {
+  .audio-player-container {
+    padding: 12px 14px;
+    border-radius: 6px;
+  }
+
+  .player-main-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .player-cover-wrapper {
+    flex: 0 0 100%;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    max-width: 160px;
+    margin: 0 auto;
+  }
+
+  .player-info-section {
+    padding: 0;
+  }
+
+  .minimal-controls {
+    justify-content: center;
+  }
+
+  .progress-section {
+    padding: 0 2px;
+  }
+
+  .player-title {
+    font-size: 0.85em;
+  }
+  .track-title {
+    font-size: 0.85em;
+  }
+  .play-btn {
+    width: 36px;
+    height: 36px;
+    padding: 6px 8px !important;
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "ngx-audio-player",
+  "version": "0.0.1",
+  "description": "A professional Angular audio player library",
+  "peerDependencies": {
+    "@angular/core": ">=17.0.0",
+    "@angular/common": ">=17.0.0",
+    "@ng-icons/core": "^26.3.0",
+    "@ng-icons/feather-icons": "^26.3.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  }
+}
